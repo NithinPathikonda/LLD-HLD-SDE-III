@@ -1,0 +1,1816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SDE-III LLD & HLD Mastery Tracker | Personalized Mentor</title>
+  <meta name="description" content="Personalized SDE-III / Staff Software Engineer progress tracker, curriculum, and mentorship companion for Low-Level Design (Python) and High-Level Distributed Systems Design.">
+  
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ----------------------------------------------------
+       CSS RESET & DESIGN TOKENS
+       ---------------------------------------------------- */
+    :root {
+      --bg-base: #090D16;
+      --bg-surface: #0F172A;
+      --bg-surface-elevated: #162036;
+      --bg-card: rgba(22, 32, 54, 0.7);
+      --bg-card-hover: rgba(30, 41, 69, 0.85);
+      
+      --border-subtle: rgba(255, 255, 255, 0.07);
+      --border-focus: rgba(99, 102, 241, 0.5);
+      --border-glow: rgba(99, 102, 241, 0.2);
+
+      --text-primary: #F8FAFC;
+      --text-secondary: #94A3B8;
+      --text-muted: #64748B;
+
+      --accent-primary: #6366F1;   /* Indigo */
+      --accent-secondary: #8B5CF6; /* Violet */
+      --accent-cyan: #06B6D4;      /* Cyan */
+      --accent-emerald: #10B981;   /* Emerald */
+      --accent-amber: #F59E0B;     /* Amber */
+      --accent-rose: #F43F5E;      /* Rose */
+
+      --gradient-brand: linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #EC4899 100%);
+      --gradient-card: linear-gradient(180deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
+      
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-full: 9999px;
+
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.45);
+      --shadow-glow: 0 0 25px -5px rgba(99, 102, 241, 0.35);
+
+      --transition-fast: 0.15s ease;
+      --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.5;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 15% 10%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 85% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.05) 0%, transparent 60%);
+      background-attachment: fixed;
+    }
+
+    /* ----------------------------------------------------
+       LAYOUT & CONTAINERS
+       ---------------------------------------------------- */
+    .container {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    /* ----------------------------------------------------
+       HEADER & HERO SECTION
+       ---------------------------------------------------- */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 2.5rem;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .brand-group {
+      max-width: 680px;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.85rem;
+      background: rgba(99, 102, 241, 0.12);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #A5B4FC;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 0.85rem;
+      backdrop-filter: blur(8px);
+    }
+
+    .badge-pill::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10B981;
+      box-shadow: 0 0 8px #10B981;
+    }
+
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      background: var(--gradient-brand);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.6rem;
+    }
+
+    .subtitle {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.15rem;
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      border: 1px solid transparent;
+      outline: none;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--accent-primary);
+      color: #FFFFFF;
+      box-shadow: var(--shadow-sm), var(--shadow-glow);
+    }
+    .btn-primary:hover {
+      background: #4F46E5;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: var(--bg-surface-elevated);
+      color: var(--text-primary);
+      border-color: var(--border-subtle);
+    }
+    .btn-secondary:hover {
+      background: #1E293B;
+      border-color: rgba(255, 255, 255, 0.15);
+      transform: translateY(-1px);
+    }
+
+    /* ----------------------------------------------------
+       METRICS & STATS GRID
+       ---------------------------------------------------- */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.4rem;
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      transition: transform var(--transition-normal), border-color var(--transition-normal);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(99, 102, 241, 0.3);
+    }
+
+    .stat-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--card-accent, var(--accent-primary));
+    }
+
+    .stat-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .stat-val-group {
+      margin-top: 0.75rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .stat-number {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .stat-total {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .progress-bar-bg {
+      margin-top: 1rem;
+      height: 6px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--card-accent, var(--accent-primary));
+      border-radius: var(--radius-full);
+      transition: width 0.4s ease;
+    }
+
+    /* ----------------------------------------------------
+       CONTROLS: SEARCH, FILTERS & TABS
+       ---------------------------------------------------- */
+    .controls-wrapper {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .controls-top {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 280px;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1rem 0.75rem 2.5rem;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .search-input:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .filter-chips {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .chip-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 0.45rem 0.9rem;
+      border-radius: var(--radius-full);
+      font-size: 0.825rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .chip-btn:hover {
+      color: var(--text-primary);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .chip-btn.active {
+      background: var(--accent-primary);
+      border-color: var(--accent-primary);
+      color: #FFFFFF;
+      font-weight: 600;
+    }
+
+    /* ----------------------------------------------------
+       CARDS & TOPIC GRID
+       ---------------------------------------------------- */
+    .topics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .topic-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      transition: all var(--transition-normal);
+    }
+
+    .topic-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(99, 102, 241, 0.35);
+      box-shadow: var(--shadow-md), 0 0 20px rgba(99, 102, 241, 0.1);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.85rem;
+      gap: 0.75rem;
+    }
+
+    .category-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .cat-lld { background: rgba(99, 102, 241, 0.15); color: #818CF8; border: 1px solid rgba(99, 102, 241, 0.25); }
+    .cat-hld { background: rgba(6, 182, 212, 0.15); color: #22D3EE; border: 1px solid rgba(6, 182, 212, 0.25); }
+    .cat-patterns { background: rgba(245, 158, 11, 0.15); color: #FBBF24; border: 1px solid rgba(245, 158, 11, 0.25); }
+    .cat-concurrency { background: rgba(244, 63, 94, 0.15); color: #FB7185; border: 1px solid rgba(244, 63, 94, 0.25); }
+
+    .difficulty-badge {
+      font-size: 0.725rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .diff-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+    .diff-medium { background: #38BDF8; }
+    .diff-hard { background: #F59E0B; }
+    .diff-bar-raiser { background: #F43F5E; box-shadow: 0 0 6px #F43F5E; }
+
+    .card-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+
+    .card-description {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      line-height: 1.55;
+      margin-bottom: 1rem;
+      flex-grow: 1;
+    }
+
+    .tag-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .tag-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: #CBD5E1;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    .card-divider {
+      height: 1px;
+      background: var(--border-subtle);
+      margin-bottom: 1rem;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .status-select {
+      background: var(--bg-surface-elevated);
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.4rem 0.7rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      outline: none;
+      cursor: pointer;
+      transition: border-color var(--transition-fast);
+    }
+
+    .status-select:focus {
+      border-color: var(--accent-primary);
+    }
+
+    .status-select.status-not_started { color: #94A3B8; }
+    .status-select.status-in_progress { color: #FBBF24; font-weight: 600; }
+    .status-select.status-solved { color: #34D399; font-weight: 600; }
+    .status-select.status-revision { color: #F43F5E; font-weight: 600; }
+
+    .rating-stars {
+      display: flex;
+      gap: 0.2rem;
+      cursor: pointer;
+    }
+
+    .star {
+      color: rgba(255, 255, 255, 0.15);
+      font-size: 1.15rem;
+      transition: color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .star.filled {
+      color: #FBBF24;
+      text-shadow: 0 0 8px rgba(251, 191, 36, 0.4);
+    }
+
+    .star:hover {
+      transform: scale(1.2);
+    }
+
+    .btn-notes {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      border-radius: var(--radius-sm);
+      padding: 0.35rem 0.65rem;
+      font-size: 0.775rem;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .btn-notes:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-primary);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-notes.has-notes {
+      border-color: rgba(99, 102, 241, 0.4);
+      color: #A5B4FC;
+      background: rgba(99, 102, 241, 0.1);
+    }
+
+    /* ----------------------------------------------------
+       NOTES & RUBRIC MODAL
+       ---------------------------------------------------- */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition-normal);
+    }
+
+    .modal-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-dialog {
+      background: #0F172A;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 650px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), var(--shadow-glow);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: scale(0.95);
+      transition: transform var(--transition-normal);
+    }
+
+    .modal-backdrop.open .modal-dialog {
+      transform: scale(1);
+    }
+
+    .modal-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .modal-close {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.4rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .modal-close:hover { color: var(--text-primary); }
+
+    .modal-body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .notes-textarea {
+      width: 100%;
+      min-height: 180px;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      resize: vertical;
+      outline: none;
+    }
+
+    .notes-textarea:focus {
+      border-color: var(--border-focus);
+    }
+
+    .rubric-box {
+      background: rgba(99, 102, 241, 0.08);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      font-size: 0.825rem;
+      color: #C7D2FE;
+    }
+
+    .rubric-box ul {
+      margin-left: 1.25rem;
+      margin-top: 0.4rem;
+    }
+
+    .modal-footer {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.75rem;
+    }
+
+    /* ----------------------------------------------------
+       TOAST NOTIFICATIONS
+       ---------------------------------------------------- */
+    .toast-container {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .toast {
+      background: #1E293B;
+      color: #F8FAFC;
+      border: 1px solid rgba(99, 102, 241, 0.4);
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      font-weight: 500;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      animation: slideIn 0.25s ease, fadeOut 0.25s ease 2.75s forwards;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+
+    /* ----------------------------------------------------
+       EMPTY STATE
+       ---------------------------------------------------- */
+    .empty-state {
+      grid-column: 1 / -1;
+      padding: 4rem 2rem;
+      text-align: center;
+      background: var(--bg-card);
+      border: 1px dashed var(--border-subtle);
+      border-radius: var(--radius-lg);
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- MASTER HEADER -->
+    <header>
+      <div class="brand-group">
+        <div class="badge-pill">SDE-III & Staff Engineer Tracker • Python Edition</div>
+        <h1>LLD & HLD Mentor & Mastery</h1>
+        <p class="subtitle">
+          Your personalized low-level machine coding (Python 3.10+) and high-level distributed systems design tracker. Built with SDE-III evaluation rubrics to get you interview-ready for Staff & Principal engineering rounds.
+        </p>
+      </div>
+
+      <div class="header-actions">
+        <button id="btn-export-data" class="btn btn-secondary" title="Export progress to JSON">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+          Export
+        </button>
+        <button id="btn-import-data" class="btn btn-secondary" title="Import progress from JSON">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+          Import
+        </button>
+        <input type="file" id="import-file-input" style="display: none;" accept=".json">
+        <button id="btn-reset-filters" class="btn btn-secondary">Clear Filters</button>
+      </div>
+    </header>
+
+    <!-- METRICS OVERVIEW -->
+    <section class="metrics-grid" id="metrics-container" aria-label="Progress metrics">
+      <!-- 1. Overall SDE-III Readiness -->
+      <div class="stat-card" style="--card-accent: var(--accent-primary);">
+        <div class="stat-title">
+          <span>SDE-III Readiness</span>
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <div class="stat-val-group">
+          <div class="stat-number" id="metric-readiness">0%</div>
+          <div class="stat-total">Mastery Index</div>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="metric-readiness-bar" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <!-- 2. LLD Machine Coding Solved -->
+      <div class="stat-card" style="--card-accent: #818CF8;">
+        <div class="stat-title">
+          <span>Python LLD Solved</span>
+          <span>🐍</span>
+        </div>
+        <div class="stat-val-group">
+          <div class="stat-number" id="metric-lld-solved">0</div>
+          <div class="stat-total" id="metric-lld-total">/ 25</div>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="metric-lld-bar" style="width: 0%; background: #818CF8;"></div>
+        </div>
+      </div>
+
+      <!-- 3. HLD Systems Solved -->
+      <div class="stat-card" style="--card-accent: var(--accent-cyan);">
+        <div class="stat-title">
+          <span>HLD Case Studies</span>
+          <span>🏛️</span>
+        </div>
+        <div class="stat-val-group">
+          <div class="stat-number" id="metric-hld-solved">0</div>
+          <div class="stat-total" id="metric-hld-total">/ 18</div>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="metric-hld-bar" style="width: 0%; background: var(--accent-cyan);"></div>
+        </div>
+      </div>
+
+      <!-- 4. Needs Revision -->
+      <div class="stat-card" style="--card-accent: var(--accent-rose);">
+        <div class="stat-title">
+          <span>Needs Revision</span>
+          <span>🔥</span>
+        </div>
+        <div class="stat-val-group">
+          <div class="stat-number" id="metric-revision">0</div>
+          <div class="stat-total">Topics to Review</div>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="metric-revision-bar" style="width: 0%; background: var(--accent-rose);"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEARCH & CATEGORY FILTERS -->
+    <div class="controls-wrapper">
+      <div class="controls-top">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="search-input" class="search-input" placeholder="Search problems (e.g., 'Parking Lot', 'Rate Limiter', 'Uber', 'SOLID', 'Cache')...">
+        </div>
+        <div class="filter-chips">
+          <button class="chip-btn active" data-filter="all">All Topics (<span id="count-all">0</span>)</button>
+          <button class="chip-btn" data-filter="lld_mc">LLD Machine Coding (<span id="count-lld_mc">0</span>)</button>
+          <button class="chip-btn" data-filter="patterns">SOLID & Patterns (<span id="count-patterns">0</span>)</button>
+          <button class="chip-btn" data-filter="hld_cs">HLD Case Studies (<span id="count-hld_cs">0</span>)</button>
+          <button class="chip-btn" data-filter="hld_blocks">HLD Blocks & Fundamentals (<span id="count-hld_blocks">0</span>)</button>
+        </div>
+      </div>
+      
+      <!-- SUB-FILTERS: STATUS & DIFFICULTY -->
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; justify-content: space-between;">
+        <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+          <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">STATUS:</span>
+          <button class="chip-btn" data-status-filter="all">Any</button>
+          <button class="chip-btn" data-status-filter="in_progress">In Progress</button>
+          <button class="chip-btn" data-status-filter="solved">Solved</button>
+          <button class="chip-btn" data-status-filter="revision">Needs Revision</button>
+        </div>
+        <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+          <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">LEVEL:</span>
+          <button class="chip-btn" data-diff-filter="all">All Levels</button>
+          <button class="chip-btn" data-diff-filter="Medium">Medium</button>
+          <button class="chip-btn" data-diff-filter="Hard">Hard</button>
+          <button class="chip-btn" data-diff-filter="SDE-III Bar Raiser">SDE-III Bar Raiser</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN TOPIC GRID -->
+    <main class="topics-grid" id="topics-grid">
+      <!-- Populated via JavaScript -->
+    </main>
+
+  </div>
+
+  <!-- NOTES & SDE-III RUBRIC MODAL -->
+  <div class="modal-backdrop" id="notes-modal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div>
+          <div style="font-size: 0.75rem; color: #818CF8; font-weight: 700; text-transform: uppercase;" id="modal-category">CATEGORY</div>
+          <div class="modal-title" id="modal-problem-title">Problem Title</div>
+        </div>
+        <button class="modal-close" id="btn-close-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="rubric-box">
+          <strong>🎯 SDE-III Mentorship Rubric:</strong>
+          <ul id="modal-rubric-list">
+            <li>Did you isolate domain entities using immutable value objects (`@dataclass(frozen=True)`)?</li>
+            <li>Can new algorithms/rules be added via Strategy/Factory without altering core services (Open-Closed)?</li>
+            <li>Did you handle race conditions (`threading.Lock` / distributed locks) & edge cases with domain exceptions?</li>
+          </ul>
+        </div>
+        
+        <div>
+          <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.4rem; display: block;">
+            Your Architectural Notes & Key Learnings:
+          </label>
+          <textarea id="modal-notes-text" class="notes-textarea" placeholder="Record design trade-offs, tricky edge cases, time/space complexities, or mistakes made during practice..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="btn-cancel-modal">Cancel</button>
+        <button class="btn btn-primary" id="btn-save-notes">Save Notes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- JAVASCRIPT APPLICATION LOGIC -->
+  <script>
+    // ----------------------------------------------------
+    // SDE-III CURATED CURRICULUM DATA
+    // ----------------------------------------------------
+    const TOPICS_DATA = [
+      // 1. LLD MACHINE CODING (PYTHON)
+      {
+        id: "mc_parking_lot",
+        category: "lld_mc",
+        categoryLabel: "LLD Machine Coding",
+        difficulty: "Hard",
+        title: "Multilevel Parking Lot System",
+        description: "Design an extensible parking lot supporting multi-floor vehicles (Car, Bike, Truck, EV) with dynamic spot allocation strategies and progressive hourly billing.",
+        tags: ["Strategy Pattern", "Factory", "Concurrency", "Fine-grained Locks"],
+        rubric: [
+          "Thread-safe spot assignment when multiple vehicles enter simultaneously",
+          "Open-Closed Principle: Pluggable pricing strategies (Hourly, Peak, Weekend)",
+          "Clean separation: Entrance/Exit Gate, Floor, ParkingSpot, Ticket, and FeeCalculator"
+        ]
+      },
+      {
+        id: "mc_splitwise",
+        category: "lld_mc",
+        categoryLabel: "LLD Machine Coding",
+        difficulty: "Hard",
+        title: "Splitwise / Expense Sharing App",
+        description: "Design an expense sharing app supporting Equal, Exact, and Percentage splits with debt simplification graph algorithms.",
+        tags: ["Strategy Pattern", "Graph Algorithm", "Min-Cash-Flow", "Rounding Errors"],
+        rubric: [
+          "Validation: Percentage sums must equal 100%, exact sums must equal total amount",
+          "Debt simplification using greedy / bipartite graph minimization",
+          "Immutability of past transactions with audit logging"
+        ]
+      },
+      {
+        id: "mc_rate_limiter",
+        category: "lld_mc",
+        categoryLabel: "LLD Machine Coding",
+        difficulty: "SDE-III Bar Raiser",
+        title: "Rate Limiter (Token / Leaky / Sliding Window)",
+        description: "Implement a thread-safe, high-throughput in-memory rate limiter supporting Token Bucket, Sliding Window Log, and Sliding Window Counter.",
+        tags: ["Token Bucket", "Sliding Window", "Lock-Free", "Atomic Integers"],
+        rubric: [
+          "Zero race condition under 1000 concurrent threads checking rate limit",
+          "Memory-efficient eviction of expired windows",
+          "Clean Strategy abstraction to switch between Token Bucket and Sliding Window"
+        ]
+      },
+      {
+        id: "mc_lru_cache",
+        category: "lld_mc",
+        categoryLabel: "LLD Machine Coding",
+        difficulty: "Hard",
+        title: "In-Memory LRU & LFU Cache",
+        description: "Implement an O(1) Get and Put cache with configurable eviction policies (LRU Doubly-Linked-List, LFU Frequency List) and thread safety.",
+        tags: ["Doubly Linked List", "HashMap", "RLock", "O(1) Eviction"],
+        rubric: [
+          "Strict O(1) time complexity for both get() and put() operations",
+          "Thread safety using RLock without causing deadlocks on cache miss callbacks",
+          "Generic typing `Cache[K, V]` with TTL expiration support"
+        ]
+      },
+      {
+        id: "mc_elevator",
+        category: "lld_mc",
+        categoryLabel: "LLD Machine Coding",
+        difficulty: "Hard",
+        title: "Multi-Car Elevator Dispatch System",
+        description: "Design an elevator management system controlling N elevators across M floors with LOOK/SCAN dispatch algorithms and emergency handling.",
+        tags: ["State Pattern", "Strategy", "LOOK/SCAN", "Producer-Consumer"],
+        rubric: [
+          "State Pattern for Elevator states: IDLE, MOVING_UP, MOVING_DOWN, MAINTENANCE",
+          "Dispatcher algorithm minimizing average wait time vs elevator energy",
+          "Thread-safe internal and external button press queues"
+        ]
+      },
+      {
+        id: "mc_notification",
+        category: "lld_mc",
+        categoryLabel: "LLD Machine Coding",
+        difficulty: "Medium",
+        title: "Multi-Channel Notification Engine",
+        description: "Design a notification service supporting SMS, Email, and Push with retry strategies, priority queues, and subscriber user preferences.",
+        tags: ["Observer", "Decorator", "Strategy", "Retry Logic"],
+        rubric: [
+          "Channel abstraction with decoupled third-party providers (Twilio, Sendgrid, FCM)",
+          "Decorator for rate-limiting, deduplication, and exponential backoff retry",
+          "User notification preference filtering"
+        ]
+      },
+      {
+        id: "mc_bookmyshow",
+        category: "lld_mc",
+        categoryLabel: "LLD Machine Coding",
+        difficulty: "SDE-III Bar Raiser",
+        title: "BookMyShow / Movie Seat Reservation",
+        description: "Design a seat reservation system handling hot-seat contention, temporary locks (10 min expiry), and atomic payment confirmations.",
+        tags: ["Pessimistic / Optimistic Locking", "State Pattern", "TTL Expiry"],
+        rubric: [
+          "Prevent double booking of same seat when 100 users click reserve concurrently",
+          "Auto-release seat locks after 10 minutes if checkout is not completed",
+          "Seat categories (Recliner, Gold, Silver) with dynamic pricing rules"
+        ]
+      },
+      {
+        id: "mc_cricbuzz",
+        category: "lld_mc",
+        categoryLabel: "LLD Machine Coding",
+        difficulty: "Hard",
+        title: "Cricbuzz / Live Match Score Tracker",
+        description: "Design a live sports score and commentary tracker supporting ball-by-ball updates, wagon wheels, and broadcast subscriber push updates.",
+        tags: ["Observer Pattern", "State Machine", "Event Streaming"],
+        rubric: [
+          "Ball-by-ball state machine validating legal vs illegal deliveries (No Ball, Wide, Bye)",
+          "Observer pattern pushing updates to thousands of connected clients",
+          "Historical statistics aggregation without blocking live score stream"
+        ]
+      },
+      {
+        id: "mc_task_scheduler",
+        category: "lld_mc",
+        categoryLabel: "LLD Machine Coding",
+        difficulty: "SDE-III Bar Raiser",
+        title: "Distributed Task Scheduler / Cron Engine",
+        description: "Build an in-memory task scheduler executing one-shot, delayed, and recurring cron jobs using priority queues and worker thread pools.",
+        tags: ["PriorityQueue", "ThreadPool", "Condition Variable", "Cron Parser"],
+        rubric: [
+          "Thread-safe PriorityQueue with worker threads waking up exactly on task schedule",
+          "Handling long-running / failing tasks without starving other scheduled jobs",
+          "Graceful shutdown: Allow running tasks to complete before process terminates"
+        ]
+      },
+      {
+        id: "mc_logging",
+        category: "lld_mc",
+        categoryLabel: "LLD Machine Coding",
+        difficulty: "Medium",
+        title: "Logging Framework (Log4j-lite)",
+        description: "Design an asynchronous logging library supporting levels (DEBUG, INFO, ERROR), custom formatting, and multiple sinks (Console, File, Network).",
+        tags: ["Chain of Responsibility", "Singleton", "Async Buffer Queue"],
+        rubric: [
+          "Asynchronous writing: Log calls never block the caller thread (Queue worker)",
+          "Chain of Responsibility for log level propagation",
+          "Pluggable sinks and formatter strategies"
+        ]
+      },
+      {
+        id: "mc_chess",
+        category: "lld_mc",
+        categoryLabel: "LLD Machine Coding",
+        difficulty: "Hard",
+        title: "Chess Game Engine",
+        description: "Design a full chess game engine supporting all piece rules, check/checkmate detection, castling, en passant, and move undo/redo.",
+        tags: ["Command Pattern", "Factory", "Board Matrix", "Move Validator"],
+        rubric: [
+          "Command Pattern for move execution and clean undo/redo stack",
+          "Polymorphic Piece classes with strict move validation boundaries",
+          "Check and Checkmate calculation without infinite recursion"
+        ]
+      },
+      {
+        id: "mc_vending_machine",
+        category: "lld_mc",
+        categoryLabel: "LLD Machine Coding",
+        difficulty: "Medium",
+        title: "Vending Machine System",
+        description: "Design a vending machine handling product selection, coin/note acceptance, change computation, and refund state management.",
+        tags: ["State Pattern", "Greedy Change Algo", "Inventory Tracking"],
+        rubric: [
+          "State pattern: IdleState, HasMoneyState, DispensingState, SoldOutState",
+          "Optimal coin change calculation with denomination exhaustion guards",
+          "Safe rollbacks on transaction cancellations"
+        ]
+      },
+      {
+        id: "mc_auction",
+        category: "lld_mc",
+        categoryLabel: "LLD Machine Coding",
+        difficulty: "Hard",
+        title: "Real-time Auction / Bidding Engine",
+        description: "Design an online bidding system handling concurrent bids, minimum increment rules, timer countdowns, and automatic proxy bidding.",
+        tags: ["Observer", "Optimistic Locking", "Event Timer"],
+        rubric: [
+          "Strict concurrency control: Highest bid must never be overwritten incorrectly",
+          "Time extension rule: Bids placed in final 30 seconds extend auction by 1 minute",
+          "Observer notifications to all active bidders upon new highest bid"
+        ]
+      },
+      {
+        id: "mc_snake_ladder",
+        category: "lld_mc",
+        categoryLabel: "LLD Machine Coding",
+        difficulty: "Medium",
+        title: "Snake and Ladder Game",
+        description: "Design a configurable Snake & Ladder game supporting N players, multiple dice, crooked dice, and custom board dimensions.",
+        tags: ["Factory", "Strategy", "Circular Queue", "Modular Math"],
+        rubric: [
+          "Pluggable Dice strategies (Normal 1-6, Crooked even-only, Weighted dice)",
+          "Cycle detection ensuring snakes and ladders do not create infinite loops",
+          "Clean turn management using circular player queues"
+        ]
+      },
+      {
+        id: "mc_pub_sub",
+        category: "lld_mc",
+        categoryLabel: "LLD Machine Coding",
+        difficulty: "SDE-III Bar Raiser",
+        title: "In-Memory Pub-Sub Messaging Queue",
+        description: "Design a thread-safe message broker supporting topics, consumer groups, message offset tracking, and broadcast vs queue modes.",
+        tags: ["Observer Pattern", "Offset Manager", "Producer-Consumer", "Queue"],
+        rubric: [
+          "Consumer Group isolation: Each consumer group receives each message exactly once",
+          "Offset tracking allowing replaying or seeking to past messages",
+          "Non-blocking message publishing with dedicated subscriber dispatch workers"
+        ]
+      },
+
+      // 2. SOLID & DESIGN PATTERNS
+      {
+        id: "pat_solid",
+        category: "patterns",
+        categoryLabel: "SOLID Principles",
+        difficulty: "Hard",
+        title: "SOLID Principles Mastery in Python",
+        description: "Deep dive into Single Responsibility, Open-Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion in Python 3.10+.",
+        tags: ["ABC", "Protocol", "Dependency Injection", "Refactoring"],
+        rubric: [
+          "Refactoring tightly coupled God-classes into single-purpose components",
+          "Eliminating `if/elif/else` type checking via polymorphism and Strategy",
+          "Enforcing subtype substitutability without broken invariants"
+        ]
+      },
+      {
+        id: "pat_strategy",
+        category: "patterns",
+        categoryLabel: "Design Patterns",
+        difficulty: "Medium",
+        title: "Strategy Pattern in Python",
+        description: "Define a family of algorithms, encapsulate each one, and make them interchangeable at runtime without modifying client classes.",
+        tags: ["Behavioral", "Open-Closed", "Duck Typing", "Callable Protocols"],
+        rubric: [
+          "Creating pluggable payment, compression, or routing algorithms",
+          "Using Python `typing.Protocol` vs `abc.ABC` for clean interfaces",
+          "Runtime dynamic strategy injection"
+        ]
+      },
+      {
+        id: "pat_factory",
+        category: "patterns",
+        categoryLabel: "Design Patterns",
+        difficulty: "Medium",
+        title: "Factory & Abstract Factory Pattern",
+        description: "Provide an interface for creating families of related or dependent objects without specifying their concrete classes.",
+        tags: ["Creational", "Decoupling", "Registration Pattern"],
+        rubric: [
+          "Self-registering factories using Python decorators",
+          "Eliminating hardcoded class instantiations across the codebase",
+          "Abstract Factory for cross-platform components (AWS vs GCP vs Azure)"
+        ]
+      },
+      {
+        id: "pat_observer",
+        category: "patterns",
+        categoryLabel: "Design Patterns",
+        difficulty: "Medium",
+        title: "Observer / Event Bus Pattern",
+        description: "Define a one-to-many dependency between objects so that when one object changes state, all its dependents are notified automatically.",
+        tags: ["Behavioral", "Event-Driven", "Loose Coupling"],
+        rubric: [
+          "Thread-safe observer registration and unregistration",
+          "Asynchronous event dispatching to avoid stalling the publisher",
+          "Weak references (`weakref`) to prevent memory leaks from forgotten listeners"
+        ]
+      },
+      {
+        id: "pat_decorator",
+        category: "patterns",
+        categoryLabel: "Design Patterns",
+        difficulty: "Medium",
+        title: "Decorator Pattern (OOP & Pythonic)",
+        description: "Attach additional responsibilities to an object dynamically. Implement both OOP class decorators and Python function wrappers.",
+        tags: ["Structural", "Middleware", "Caching", "Rate Limiting"],
+        rubric: [
+          "Class-based decorator wrapping service calls with logging, metrics, and retries",
+          "Preserving type hints and docstrings with `functools.wraps`",
+          "Composing multiple decorators cleanly"
+        ]
+      },
+      {
+        id: "pat_state",
+        category: "patterns",
+        categoryLabel: "Design Patterns",
+        difficulty: "Hard",
+        title: "State Pattern vs Finite State Machine",
+        description: "Allow an object to alter its behavior when its internal state changes. Implement clean order/payment lifecycles without nested conditionals.",
+        tags: ["Behavioral", "Order Lifecycle", "State Transitions"],
+        rubric: [
+          "Encapsulating state-dependent behavior into discrete State classes",
+          "Preventing illegal transitions (e.g. Cancelled -> Shipped)",
+          "Triggering side-effects on state enter and exit"
+        ]
+      },
+      {
+        id: "pat_concurrency",
+        category: "patterns",
+        categoryLabel: "Concurrency",
+        difficulty: "SDE-III Bar Raiser",
+        title: "Python Concurrency & Thread-Safety",
+        description: "Master multi-threading, GIL implications, thread locks (`RLock`, `Condition`, `Semaphore`), and Producer-Consumer patterns.",
+        tags: ["threading", "RLock", "Condition", "Queue", "Deadlocks"],
+        rubric: [
+          "Lock acquisition order to guarantee deadlock avoidance",
+          "Producer-Consumer queues with `threading.Condition` and poison pills",
+          "Optimistic concurrency control vs pessimistic locking"
+        ]
+      },
+
+      // 3. HLD CASE STUDIES
+      {
+        id: "hld_tinyurl",
+        category: "hld_cs",
+        categoryLabel: "HLD Case Studies",
+        difficulty: "Medium",
+        title: "URL Shortener (TinyURL / Bitly)",
+        description: "Design a high-scale URL shortening service handling 100M+ writes/day and 1B+ reads/day with low-latency redirects and analytics.",
+        tags: ["Base62", "Distributed Counter", "Redis Cache", "301 vs 302"],
+        rubric: [
+          "Base62 hashing vs Token Range ID generator to prevent hash collisions",
+          "301 Permanent Redirect (client caches) vs 302 Temporary (server logs click metrics)",
+          "Cache-Aside pattern with Redis: 80-20 rule to achieve <10ms P99 read latency"
+        ]
+      },
+      {
+        id: "hld_cache",
+        category: "hld_cs",
+        categoryLabel: "HLD Case Studies",
+        difficulty: "SDE-III Bar Raiser",
+        title: "Distributed Cache (Redis / Memcached)",
+        description: "Design a multi-node distributed in-memory cache with consistent hashing, replication, high availability, and eviction.",
+        tags: ["Consistent Hashing", "Virtual Nodes", "Gossip Protocol", "Thundering Herd"],
+        rubric: [
+          "Consistent hashing ring with 256 virtual nodes to prevent hot spots",
+          "Preventing Thundering Herd & Cache Stampede using distributed locks / probabilistic early expiration (XFetch)",
+          "Leader-Follower replication with Raft or Gossip failure detection"
+        ]
+      },
+      {
+        id: "hld_uber",
+        category: "hld_cs",
+        categoryLabel: "HLD Case Studies",
+        difficulty: "SDE-III Bar Raiser",
+        title: "Ride-Sharing System (Uber / Lyft)",
+        description: "Design a real-time ride hailing platform handling location updates from 5M drivers every 4 seconds and fast driver-rider matching.",
+        tags: ["Geospatial Indexing", "Uber H3 / Google S2", "WebSockets", "Kafka"],
+        rubric: [
+          "Geospatial indexing tradeoffs: H3 Hexagonal Hierarchical Spatial Index vs QuadTree",
+          "Location ingestion pipeline: Decoupling high-frequency driver pings via Kafka",
+          "Matching engine: Latency-sensitive localized search with race condition prevention"
+        ]
+      },
+      {
+        id: "hld_whatsapp",
+        category: "hld_cs",
+        categoryLabel: "HLD Case Studies",
+        difficulty: "Hard",
+        title: "Real-Time Messenger (WhatsApp / Slack)",
+        description: "Design a distributed real-time messaging system supporting 1-on-1 chat, group chat, delivery receipts, and offline message storage.",
+        tags: ["WebSockets", "Cassandra", "Message Queues", "Push Notifications"],
+        rubric: [
+          "Maintaining millions of persistent WebSocket connections with Gateway routing tables",
+          "Handling offline users: Temporary storage in queue with push notifications",
+          "Message ordering guarantees across network partitions"
+        ]
+      },
+      {
+        id: "hld_youtube",
+        category: "hld_cs",
+        categoryLabel: "HLD Case Studies",
+        difficulty: "Hard",
+        title: "Video Streaming Platform (YouTube / Netflix)",
+        description: "Design a global video streaming platform with video upload pipelines, transcoding chunks, and edge CDN distribution.",
+        tags: ["Video Transcoding", "HLS / DASH", "Blob Storage (S3)", "Multi-tier CDN"],
+        rubric: [
+          "Chunked adaptive bitrate streaming (HLS / DASH 360p to 4K)",
+          "Asynchronous DAG transcoding pipeline via message queues and worker pools",
+          "Multi-tier CDN caching and origin shield to optimize egress bandwidth cost"
+        ]
+      },
+      {
+        id: "hld_kafka",
+        category: "hld_cs",
+        categoryLabel: "HLD Case Studies",
+        difficulty: "SDE-III Bar Raiser",
+        title: "Distributed Message Broker (Kafka-lite)",
+        description: "Design a high-throughput, fault-tolerant append-only distributed commit log with partitioning, replication, and consumer offset tracking.",
+        tags: ["Append-Only Log", "Zero-Copy Reads", "ISR Replication", "Page Cache"],
+        rubric: [
+          "Zero-copy read performance using OS page cache and `sendfile()` system call",
+          "In-Sync Replicas (ISR) and leader election to prevent data loss on broker failure",
+          "Partition rebalancing protocol across consumer groups"
+        ]
+      },
+      {
+        id: "hld_payment",
+        category: "hld_cs",
+        categoryLabel: "HLD Case Studies",
+        difficulty: "SDE-III Bar Raiser",
+        title: "Payment Gateway & Ledger (Stripe-lite)",
+        description: "Design a mission-critical payment processing system guaranteeing zero double-spending, exactly-once processing, and reconciliation.",
+        tags: ["Idempotency Keys", "Distributed Transactions", "Saga Pattern", "Double-Entry Ledger"],
+        rubric: [
+          "Idempotency key enforcement using distributed locks and atomic state transitions",
+          "Double-entry bookkeeping ledger: Sum of credits must always equal debits",
+          "Handling partial payment failures using Saga pattern with compensating transactions"
+        ]
+      },
+      {
+        id: "hld_flash_sale",
+        category: "hld_cs",
+        categoryLabel: "HLD Case Studies",
+        difficulty: "Hard",
+        title: "Flash Sale / High-Contention Inventory",
+        description: "Design an inventory management system handling 500,000 requests/sec for 1,000 limited-stock items during flash sales.",
+        tags: ["Redis Lua Scripts", "Async Decoupling", "Optimistic Locking", "Backpressure"],
+        rubric: [
+          "Atomic inventory decrement using Redis + Lua script to eliminate race conditions",
+          "Decoupling order generation from payment via async Kafka queues",
+          "Virtual queue / waiting room to prevent backend thundering herd"
+        ]
+      },
+      {
+        id: "hld_google_docs",
+        category: "hld_cs",
+        categoryLabel: "HLD Case Studies",
+        difficulty: "SDE-III Bar Raiser",
+        title: "Collaborative Editing (Google Docs)",
+        description: "Design a real-time collaborative text editor supporting multiple concurrent writers, offline edits, and conflict-free text synchronization.",
+        tags: ["Operational Transformation", "CRDT", "Vector Clocks", "WebSockets"],
+        rubric: [
+          "Operational Transformation (OT) vs Conflict-Free Replicated Data Types (CRDTs)",
+          "Vector clocks and Lamport timestamps to establish deterministic ordering",
+          "Handling transient network disconnections with local operation buffer replay"
+        ]
+      },
+
+      // 4. HLD BUILDING BLOCKS & FUNDAMENTALS
+      {
+        id: "hld_cap",
+        category: "hld_blocks",
+        categoryLabel: "HLD Fundamentals",
+        difficulty: "Medium",
+        title: "CAP Theorem & Consistency Models",
+        description: "Master CAP theorem tradeoffs (CP vs AP), PACELC theorem, Strong vs Eventual vs Read-After-Write vs Causal consistency.",
+        tags: ["CAP Theorem", "PACELC", "Linearizability", "Eventual Consistency"],
+        rubric: [
+          "Real-world CAP mapping: Why network partitions cannot be avoided in distributed systems",
+          "PACELC: Trading latency vs consistency even when the network is healthy",
+          "Quorum reads & writes: $R + W > N$ formula and replication lag trade-offs"
+        ]
+      },
+      {
+        id: "hld_sharding",
+        category: "hld_blocks",
+        categoryLabel: "HLD Fundamentals",
+        difficulty: "Hard",
+        title: "Database Sharding & Partitioning",
+        description: "Design horizontal sharding schemes, partition key selection, re-sharding strategies, and cross-shard query aggregation.",
+        tags: ["Horizontal Sharding", "Range vs Hash", "Hot Spotting", "Cross-Shard Joins"],
+        rubric: [
+          "Choosing high-cardinality shard keys to prevent uneven distribution",
+          "Handling the Celebrity / Hot Key problem using salted keys or secondary caching",
+          "Zero-downtime resharding using dual writes and background CDC sync"
+        ]
+      },
+      {
+        id: "hld_dist_lock",
+        category: "hld_blocks",
+        categoryLabel: "HLD Building Blocks",
+        difficulty: "Hard",
+        title: "Distributed Locks (Redlock vs ZooKeeper)",
+        description: "Design fault-tolerant distributed locks. Evaluate Redlock, ZooKeeper ephemeral nodes, lease timeouts, and fencing tokens.",
+        tags: ["Redlock", "ZooKeeper", "Fencing Tokens", "Clock Drift"],
+        rubric: [
+          "Martin Kleppmann's Redlock critique: Why timeouts + GC pauses break safety without fencing tokens",
+          "Fencing tokens: Monotonically increasing counter validated by the storage engine",
+          "Lease renewal heartbeat threads"
+        ]
+      },
+      {
+        id: "hld_unique_id",
+        category: "hld_blocks",
+        categoryLabel: "HLD Building Blocks",
+        difficulty: "Medium",
+        title: "Distributed Unique ID Generator",
+        description: "Design a 64-bit globally unique ID generator with roughly time-sorted properties at 100,000+ IDs/second.",
+        tags: ["Twitter Snowflake", "UUIDv7", "Timestamp Drift", "Machine ID"],
+        rubric: [
+          "Snowflake bit breakdown: 1 bit sign + 41 bit timestamp + 10 bit worker + 12 bit sequence",
+          "NTP clock drift handling (backward time jumps)",
+          "High availability when worker nodes join or reboot"
+        ]
+      }
+    ];
+
+    // ----------------------------------------------------
+    // STATE MANAGEMENT & LOCAL STORAGE
+    // ----------------------------------------------------
+    const STORAGE_KEY = "sde3_mentor_tracker_v1";
+
+    let state = {
+      activeCategory: "all",
+      statusFilter: "all",
+      diffFilter: "all",
+      searchQuery: "",
+      progress: {} // { [topicId]: { status: "not_started"|"in_progress"|"solved"|"revision", rating: 0-5, notes: "" } }
+    };
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed && parsed.progress) {
+            state.progress = parsed.progress;
+          }
+        }
+      } catch (e) {
+        console.error("Error reading localStorage:", e);
+      }
+      
+      // Ensure all topics exist in progress map
+      TOPICS_DATA.forEach(t => {
+        if (!state.progress[t.id]) {
+          state.progress[t.id] = { status: "not_started", rating: 0, notes: "" };
+        }
+      });
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ progress: state.progress }));
+      } catch (e) {
+        console.error("Error saving state:", e);
+      }
+      updateMetrics();
+    }
+
+    // ----------------------------------------------------
+    // METRICS CALCULATION
+    // ----------------------------------------------------
+    function updateMetrics() {
+      const total = TOPICS_DATA.length;
+      let solvedCount = 0;
+      let inProgressCount = 0;
+      let revisionCount = 0;
+      let totalRatingScore = 0;
+
+      let lldTotal = 0, lldSolved = 0;
+      let hldTotal = 0, hldSolved = 0;
+
+      TOPICS_DATA.forEach(t => {
+        const item = state.progress[t.id] || { status: "not_started", rating: 0 };
+        const isSolved = item.status === "solved";
+        if (isSolved) solvedCount++;
+        if (item.status === "in_progress") inProgressCount++;
+        if (item.status === "revision") revisionCount++;
+        totalRatingScore += (item.rating || 0);
+
+        if (t.category.startsWith("lld") || t.category === "patterns") {
+          lldTotal++;
+          if (isSolved) lldSolved++;
+        } else {
+          hldTotal++;
+          if (isSolved) hldSolved++;
+        }
+      });
+
+      // SDE-III Readiness = Weighted combo of solved % and rating depth
+      const solvedPct = total > 0 ? (solvedCount / total) * 100 : 0;
+      const readiness = Math.round(solvedPct);
+
+      // DOM updates
+      document.getElementById("metric-readiness").innerText = `${readiness}%`;
+      document.getElementById("metric-readiness-bar").style.width = `${readiness}%`;
+
+      document.getElementById("metric-lld-solved").innerText = lldSolved;
+      document.getElementById("metric-lld-total").innerText = `/ ${lldTotal}`;
+      document.getElementById("metric-lld-bar").style.width = `${lldTotal > 0 ? (lldSolved / lldTotal) * 100 : 0}%`;
+
+      document.getElementById("metric-hld-solved").innerText = hldSolved;
+      document.getElementById("metric-hld-total").innerText = `/ ${hldTotal}`;
+      document.getElementById("metric-hld-bar").style.width = `${hldTotal > 0 ? (hldSolved / hldTotal) * 100 : 0}%`;
+
+      document.getElementById("metric-revision").innerText = revisionCount;
+      document.getElementById("metric-revision-bar").style.width = `${total > 0 ? (revisionCount / total) * 100 : 0}%`;
+
+      // Update Category Counts
+      document.getElementById("count-all").innerText = total;
+      document.getElementById("count-lld_mc").innerText = TOPICS_DATA.filter(t => t.category === "lld_mc").length;
+      document.getElementById("count-patterns").innerText = TOPICS_DATA.filter(t => t.category === "patterns").length;
+      document.getElementById("count-hld_cs").innerText = TOPICS_DATA.filter(t => t.category === "hld_cs").length;
+      document.getElementById("count-hld_blocks").innerText = TOPICS_DATA.filter(t => t.category === "hld_blocks").length;
+    }
+
+    // ----------------------------------------------------
+    // RENDERING TOPIC CARDS
+    // ----------------------------------------------------
+    function renderTopics() {
+      const grid = document.getElementById("topics-grid");
+      grid.innerHTML = "";
+
+      const query = state.searchQuery.toLowerCase().trim();
+
+      const filtered = TOPICS_DATA.filter(t => {
+        // Category filter
+        if (state.activeCategory !== "all" && t.category !== state.activeCategory) return false;
+
+        // Status filter
+        const currentStatus = state.progress[t.id]?.status || "not_started";
+        if (state.statusFilter !== "all" && currentStatus !== state.statusFilter) return false;
+
+        // Difficulty filter
+        if (state.diffFilter !== "all" && t.difficulty !== state.diffFilter) return false;
+
+        // Search query
+        if (query) {
+          const matchTitle = t.title.toLowerCase().includes(query);
+          const matchDesc = t.description.toLowerCase().includes(query);
+          const matchTags = t.tags.some(tag => tag.toLowerCase().includes(query));
+          if (!matchTitle && !matchDesc && !matchTags) return false;
+        }
+
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state">
+            <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem;">No matching topics found</h3>
+            <p>Try clearing your search query or adjusting category/status filters.</p>
+          </div>
+        `;
+        return;
+      }
+
+      filtered.forEach(topic => {
+        const itemState = state.progress[topic.id] || { status: "not_started", rating: 0, notes: "" };
+        const hasNotes = !!(itemState.notes && itemState.notes.trim().length > 0);
+
+        let catClass = "cat-lld";
+        if (topic.category === "hld_cs" || topic.category === "hld_blocks") catClass = "cat-hld";
+        if (topic.category === "patterns") catClass = "cat-patterns";
+
+        let diffDotClass = "diff-medium";
+        if (topic.difficulty === "Hard") diffDotClass = "diff-hard";
+        if (topic.difficulty === "SDE-III Bar Raiser") diffDotClass = "diff-bar-raiser";
+
+        const card = document.createElement("div");
+        card.className = "topic-card";
+        card.id = `card-${topic.id}`;
+
+        card.innerHTML = `
+          <div>
+            <div class="card-top">
+              <span class="category-tag ${catClass}">${topic.categoryLabel}</span>
+              <div class="difficulty-badge">
+                <span class="diff-dot ${diffDotClass}"></span>
+                ${topic.difficulty}
+              </div>
+            </div>
+
+            <h3 class="card-title">${topic.title}</h3>
+            <p class="card-description">${topic.description}</p>
+
+            <div class="tag-pills">
+              ${topic.tags.map(tag => `<span class="tag-pill">${tag}</span>`).join('')}
+            </div>
+          </div>
+
+          <div>
+            <div class="card-divider"></div>
+            <div class="card-footer">
+              <select class="status-select status-${itemState.status}" data-id="${topic.id}">
+                <option value="not_started" ${itemState.status === 'not_started' ? 'selected' : ''}>Not Started</option>
+                <option value="in_progress" ${itemState.status === 'in_progress' ? 'selected' : ''}>⏳ In Progress</option>
+                <option value="solved" ${itemState.status === 'solved' ? 'selected' : ''}>✅ Solved</option>
+                <option value="revision" ${itemState.status === 'revision' ? 'selected' : ''}>🔥 Needs Revision</option>
+              </select>
+
+              <div class="rating-stars" data-id="${topic.id}" title="Confidence Rating (1 to 5)">
+                ${[1, 2, 3, 4, 5].map(starNum => `
+                  <span class="star ${starNum <= itemState.rating ? 'filled' : ''}" data-star="${starNum}">★</span>
+                `).join('')}
+              </div>
+
+              <button class="btn-notes ${hasNotes ? 'has-notes' : ''}" data-id="${topic.id}" title="View/Edit SDE-III Notes & Rubric">
+                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                ${hasNotes ? 'Notes •' : 'Notes'}
+              </button>
+            </div>
+          </div>
+        `;
+
+        grid.appendChild(card);
+      });
+
+      attachCardEventListeners();
+    }
+
+    function attachCardEventListeners() {
+      // 1. Status Dropdown Changes
+      document.querySelectorAll(".status-select").forEach(select => {
+        select.addEventListener("change", (e) => {
+          const id = e.target.getAttribute("data-id");
+          const newStatus = e.target.value;
+          state.progress[id].status = newStatus;
+          e.target.className = `status-select status-${newStatus}`;
+          saveState();
+          showToast(`Status updated to "${e.target.options[e.target.selectedIndex].text}"`);
+        });
+      });
+
+      // 2. Star Rating Clicks
+      document.querySelectorAll(".rating-stars").forEach(starContainer => {
+        starContainer.addEventListener("click", (e) => {
+          if (!e.target.classList.contains("star")) return;
+          const id = starContainer.getAttribute("data-id");
+          const clickedStar = parseInt(e.target.getAttribute("data-star"), 10);
+          
+          // Toggle off if clicking the same star
+          if (state.progress[id].rating === clickedStar) {
+            state.progress[id].rating = clickedStar - 1;
+          } else {
+            state.progress[id].rating = clickedStar;
+          }
+          
+          saveState();
+          renderTopics();
+          showToast(`Confidence rating set to ${state.progress[id].rating} / 5`);
+        });
+      });
+
+      // 3. Notes Modal Open
+      document.querySelectorAll(".btn-notes").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          const id = btn.getAttribute("data-id");
+          openNotesModal(id);
+        });
+      });
+    }
+
+    // ----------------------------------------------------
+    // NOTES & SDE-III RUBRIC MODAL
+    // ----------------------------------------------------
+    let currentModalTopicId = null;
+
+    function openNotesModal(topicId) {
+      currentModalTopicId = topicId;
+      const topic = TOPICS_DATA.find(t => t.id === topicId);
+      if (!topic) return;
+
+      document.getElementById("modal-category").innerText = topic.categoryLabel;
+      document.getElementById("modal-problem-title").innerText = topic.title;
+
+      const rubricList = document.getElementById("modal-rubric-list");
+      rubricList.innerHTML = topic.rubric.map(item => `<li>${item}</li>`).join('');
+
+      const itemState = state.progress[topicId] || { notes: "" };
+      document.getElementById("modal-notes-text").value = itemState.notes || "";
+
+      const modal = document.getElementById("notes-modal");
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+      document.getElementById("modal-notes-text").focus();
+    }
+
+    function closeNotesModal() {
+      const modal = document.getElementById("notes-modal");
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+      currentModalTopicId = null;
+    }
+
+    document.getElementById("btn-close-modal").addEventListener("click", closeNotesModal);
+    document.getElementById("btn-cancel-modal").addEventListener("click", closeNotesModal);
+
+    document.getElementById("btn-save-notes").addEventListener("click", () => {
+      if (!currentModalTopicId) return;
+      const notesValue = document.getElementById("modal-notes-text").value;
+      state.progress[currentModalTopicId].notes = notesValue;
+      saveState();
+      renderTopics();
+      closeNotesModal();
+      showToast("Architectural notes saved!");
+    });
+
+    // Close on outside click
+    document.getElementById("notes-modal").addEventListener("click", (e) => {
+      if (e.target.id === "notes-modal") closeNotesModal();
+    });
+
+    // ----------------------------------------------------
+    // FILTER CONTROLS & SEARCH
+    // ----------------------------------------------------
+    // Category Chips
+    document.querySelectorAll(".filter-chips .chip-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".filter-chips .chip-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        state.activeCategory = btn.getAttribute("data-filter");
+        renderTopics();
+      });
+    });
+
+    // Status Filter Chips
+    document.querySelectorAll("[data-status-filter]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("[data-status-filter]").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        state.statusFilter = btn.getAttribute("data-status-filter");
+        renderTopics();
+      });
+    });
+
+    // Difficulty Filter Chips
+    document.querySelectorAll("[data-diff-filter]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("[data-diff-filter]").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        state.diffFilter = btn.getAttribute("data-diff-filter");
+        renderTopics();
+      });
+    });
+
+    // Search Input with Debounce
+    let searchTimeout = null;
+    document.getElementById("search-input").addEventListener("input", (e) => {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        state.searchQuery = e.target.value;
+        renderTopics();
+      }, 150);
+    });
+
+    // Reset Filters
+    document.getElementById("btn-reset-filters").addEventListener("click", () => {
+      state.activeCategory = "all";
+      state.statusFilter = "all";
+      state.diffFilter = "all";
+      state.searchQuery = "";
+
+      document.getElementById("search-input").value = "";
+      document.querySelectorAll(".chip-btn").forEach(b => b.classList.remove("active"));
+      document.querySelector('[data-filter="all"]').classList.add("active");
+      document.querySelector('[data-status-filter="all"]').classList.add("active");
+      document.querySelector('[data-diff-filter="all"]').classList.add("active");
+
+      renderTopics();
+      showToast("Filters reset to default");
+    });
+
+    // ----------------------------------------------------
+    // EXPORT & IMPORT JSON
+    // ----------------------------------------------------
+    document.getElementById("btn-export-data").addEventListener("click", () => {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `sde3_lld_hld_tracker_backup_${new Date().toISOString().slice(0, 10)}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      showToast("Progress exported successfully!");
+    });
+
+    document.getElementById("btn-import-data").addEventListener("click", () => {
+      document.getElementById("import-file-input").click();
+    });
+
+    document.getElementById("import-file-input").addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        try {
+          const imported = JSON.parse(event.target.result);
+          if (imported && imported.progress) {
+            state.progress = { ...state.progress, ...imported.progress };
+            saveState();
+            renderTopics();
+            showToast("Progress imported successfully!");
+          } else {
+            showToast("Invalid JSON file format");
+          }
+        } catch (err) {
+          showToast("Error parsing JSON file");
+        }
+      };
+      reader.readAsText(file);
+    });
+
+    // ----------------------------------------------------
+    // TOAST NOTIFICATIONS
+    // ----------------------------------------------------
+    function showToast(message) {
+      const container = document.getElementById("toast-container");
+      const toast = document.createElement("div");
+      toast.className = "toast";
+      toast.innerHTML = `<span>✨</span><span>${message}</span>`;
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.remove();
+      }, 3000);
+    }
+
+    // ----------------------------------------------------
+    // INITIALIZATION
+    // ----------------------------------------------------
+    window.addEventListener("DOMContentLoaded", () => {
+      loadState();
+      updateMetrics();
+      renderTopics();
+      // Set active chip defaults
+      document.querySelector('[data-status-filter="all"]').classList.add("active");
+      document.querySelector('[data-diff-filter="all"]').classList.add("active");
+    });
+  </script>
+</body>
+</html>
