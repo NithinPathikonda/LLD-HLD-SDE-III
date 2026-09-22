@@ -11,18 +11,20 @@
 
 ## 📑 Table of Contents
 1. [What Separates SDE-II from SDE-III?](#-what-separates-sde-ii-from-sde-iii)
-2. [Interactive Progress Dashboard (`index.html`)](#-interactive-progress-dashboard-indexhtml)
-3. [Low-Level Design (LLD) Curriculum](#-low-level-design-lld-python)
+2. [12-Week SDE-3 Accelerated Roadmap (for 2 YoE Engineers)](./ROADMAP.md)
+3. [Interactive Progress Dashboard (`index.html`)](#-interactive-progress-dashboard-indexhtml)
+4. [Low-Level Design (LLD) Curriculum](#-low-level-design-lld-python)
+   - [OOP Foundations in Python](#0-oop-foundations-in-python)
    - [SOLID Principles](#1-solid-principles-in-python)
    - [Core Design Patterns](#2-gof-design-patterns)
    - [Concurrency & Thread Safety](#3-concurrency--multithreading)
    - [15 Machine Coding Problem Bank](#4-15-curated-sde-iii-machine-coding-problems)
-4. [High-Level Design (HLD) Curriculum](#-high-level-system-design-hld)
+5. [High-Level Design (HLD) Curriculum](#-high-level-system-design-hld)
    - [Distributed Systems Fundamentals](#1-distributed-fundamentals)
    - [Core Building Blocks](#2-core-building-blocks)
    - [10 End-to-End System Design Case Studies](#3-10-end-to-end-system-design-case-studies)
-5. [SDE-III Python Engineering Standards](#-sde-iii-python-engineering-standards)
-6. [Interactive Mentorship Workflow](#-interactive-mentorship-workflow)
+6. [SDE-III Python Engineering Standards](#-sde-iii-python-engineering-standards)
+7. [Interactive Mentorship Workflow](#-interactive-mentorship-workflow)
 
 ---
 
@@ -35,6 +37,12 @@
 | **Typing & Clean Code** | Standard dynamic code. | Strict type hinting (`typing`, `Protocol`, `ABC`), custom domain exceptions, immutable value objects (`@dataclass(frozen=True)`). |
 | **HLD Scope Leadership** | Follows standard tutorial diagrams (Web server -> DB). | Proactively drives trade-offs (CAP, consistency models, partition keys, hot keys, replication lag, blast radius, failure modes, cost). |
 | **Resilience & Production** | Assumes the network and components never fail. | Designs circuit breakers, rate limiters, dead-letter queues, idempotent retry policies, and observability (metrics/distributed tracing). |
+
+---
+
+## 🧭 12-Week Accelerated Roadmap (For 2 YoE Engineers)
+If you have 1–3 years of experience, check out our customized week-by-week study plan:
+👉 **[Read the Full 12-Week SDE-3 Roadmap (ROADMAP.md)](./ROADMAP.md)**
 
 ---
 
@@ -57,6 +65,9 @@ open index.html
 ---
 
 ## 📐 Low-Level Design (LLD) [Python]
+
+### 0. OOP Foundations in Python
+- [Encapsulation, Abstraction, Composition over Inheritance, Polymorphism & Type Hints](./lld/00_oop_foundations/README.md)
 
 ### 1. SOLID Principles in Python
 - [Single Responsibility Principle (SRP)](./lld/01_solid_principles/01_single_responsibility/README.md)
@@ -111,6 +122,9 @@ Each problem includes requirements, edge cases, SDE-III rubrics, and a typed Pyt
 - [Database Sharding & Partitioning Strategies](./hld/01_fundamentals/02_sharding_and_partitioning/README.md)
 - [Caching Strategies & Thundering Herd Mitigation](./hld/01_fundamentals/03_caching_and_thundering_herd/README.md)
 - [Replication & Consistency Models](./hld/01_fundamentals/04_replication_and_consistency/README.md)
+- [Networking Protocols (TCP/UDP, HTTP/1-2-3, WebSockets, gRPC, SSE)](./hld/01_fundamentals/05_networking_protocols/README.md)
+- [Database Storage Engines (B-Tree vs LSM-Tree), Indexes & ACID Isolation](./hld/01_fundamentals/06_database_internals/README.md)
+- [Load Balancing & Reverse Proxies (L4 vs L7, Nginx/Envoy, Consistent Hashing)](./hld/01_fundamentals/07_load_balancing/README.md)
 
 ### 2. Core Building Blocks
 - [Distributed Rate Limiter](./hld/02_building_blocks/01_distributed_rate_limiter/README.md)

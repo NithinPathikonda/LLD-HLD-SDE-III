@@ -1384,6 +1384,62 @@
           "NTP clock drift handling (backward time jumps)",
           "High availability when worker nodes join or reboot"
         ]
+      },
+      {
+        id: "oop_foundations",
+        category: "patterns",
+        categoryLabel: "OOP Foundations",
+        difficulty: "Medium",
+        title: "OOP Foundations & Python Typing",
+        description: "Master Encapsulation, Abstraction, Composition over Inheritance, Polymorphism, Typing Protocols, and Dunder methods in Python 3.10+.",
+        tags: ["Composition vs Inheritance", "typing.Protocol", "Dataclasses", "Dunder Methods"],
+        rubric: [
+          "Favor composition over inheritance to prevent fragile base classes",
+          "Use @dataclass(frozen=True) for immutable value objects with custom hashing",
+          "Decouple domain models from transport and persistence layers"
+        ]
+      },
+      {
+        id: "hld_networking",
+        category: "hld_blocks",
+        categoryLabel: "HLD Fundamentals",
+        difficulty: "Medium",
+        title: "Networking Protocols (TCP/UDP, HTTP/1-2-3, gRPC, WebSockets)",
+        description: "Deep dive into OSI layers, TCP 3-way handshake, Head-of-Line blocking in HTTP/1 and HTTP/2, QUIC/HTTP/3, WebSockets vs SSE vs gRPC.",
+        tags: ["TCP vs UDP", "HTTP/2 vs HTTP/3", "WebSockets", "gRPC", "SSE"],
+        rubric: [
+          "Explain Head-of-Line blocking differences between HTTP/1.1, HTTP/2, and HTTP/3",
+          "Defend choice of WebSocket vs Server-Sent Events vs gRPC for real-time systems",
+          "Explain connection pooling, TLS termination overhead, and Keep-Alive"
+        ]
+      },
+      {
+        id: "hld_db_internals",
+        category: "hld_blocks",
+        categoryLabel: "HLD Fundamentals",
+        difficulty: "Hard",
+        title: "Database Storage Engines, Indexes & ACID Isolation",
+        description: "Master B-Tree vs LSM-Tree storage mechanics, Clustered vs Secondary indexes, composite index leftmost prefix rule, and transaction isolation levels.",
+        tags: ["B-Tree vs LSM-Tree", "Clustered Index", "ACID Isolation", "Write Skew"],
+        rubric: [
+          "Compare random disk write performance of B-Tree vs append-only sequential I/O of LSM-Trees",
+          "Explain Dirty Reads, Non-Repeatable Reads, Phantom Reads, and Write Skew anomalies",
+          "Understand how composite index ordering affects query execution plans"
+        ]
+      },
+      {
+        id: "hld_load_balancing",
+        category: "hld_blocks",
+        categoryLabel: "HLD Fundamentals",
+        difficulty: "Medium",
+        title: "Load Balancing & Reverse Proxies (L4 vs L7)",
+        description: "Compare Layer 4 (TCP/UDP NLB) vs Layer 7 (HTTP/gRPC ALB) routing, SSL termination, health checking, and high-availability VRRP floating IPs.",
+        tags: ["Layer 4 vs Layer 7", "Consistent Hashing", "Nginx / Envoy", "HA VIP"],
+        rubric: [
+          "Explain architectural tradeoffs between Layer 4 packet routing vs Layer 7 header/path routing",
+          "Mitigate single point of failure (SPOF) using DNS Round Robin and Virtual IP floating (Keepalived)",
+          "Use Consistent Hashing for stateful connections and cache routing"
+        ]
       }
     ];
 
